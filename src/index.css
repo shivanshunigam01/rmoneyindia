@@ -60,8 +60,26 @@
   .dark {
     --background: 0 0% 10%;
     --foreground: 0 0% 95%;
-    --charcoal: 0 0% 5%;
-    --charcoal-light: 0 0% 10%;
+    --charcoal: 0 0% 95%;
+    --charcoal-light: 0 0% 90%;
+    
+    /* Dark mode card colors */
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    
+    /* Dark mode glass effects */
+    --glass-bg: 0 0% 0% / 0.3;
+    --glass-border: 0 0% 100% / 0.1;
   }
 }
 

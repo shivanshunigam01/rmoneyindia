@@ -18,41 +18,96 @@ import {
   Play,
   Phone,
   Mail,
-  MapPin
+  MapPin,
+  Menu,
+  X
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { Chatbot } from '@/components/Chatbot';
+import { WhatsAppButton } from '@/components/WhatsAppButton';
 import heroDashboard from '@/assets/hero-dashboard.jpg';
+import { useState } from 'react';
 
 const Index = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen bg-background overflow-hidden">
+    <div className="min-h-screen bg-background overflow-hidden relative">
       {/* Header/Navigation */}
       <motion.header 
-        className="relative z-50 px-6 py-6"
+        className="relative z-50 px-6 py-6 glass-card border-b border-white/10"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
         <nav className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <motion.div 
+            className="flex items-center space-x-3"
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          >
             <img 
               src="/lovable-uploads/f7de1567-6930-4510-8e22-a4606c1810e9.png" 
               alt="Raghunathan Money Logo" 
-              className="h-12 w-auto"
+              className="h-12 w-auto hover:drop-shadow-lg transition-all"
             />
-          </div>
+          </motion.div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#services" className="text-charcoal hover:text-primary transition-colors">Services</a>
-            <a href="#platform" className="text-charcoal hover:text-primary transition-colors">Platform</a>
-            <a href="#research" className="text-charcoal hover:text-primary transition-colors">Research</a>
-            <a href="#pricing" className="text-charcoal hover:text-primary transition-colors">Pricing</a>
-            <Button variant="outline" className="rounded-2xl">Login</Button>
-            <Button className="btn-primary rounded-2xl">Open Account</Button>
-          </div>
-        </nav>
-      </motion.header>
+            <a href="#services" className="text-foreground hover:text-primary transition-colors font-medium hover:scale-105 transform transition-transform">Services</a>
+            <a href="#platform" className="text-foreground hover:text-primary transition-colors font-medium hover:scale-105 transform transition-transform">Platform</a>
+            <a href="#research" className="text-foreground hover:text-primary transition-colors font-medium hover:scale-105 transform transition-transform">Research</a>
+             <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium hover:scale-105 transform transition-transform">Contact</a>
+             <ThemeToggle />
+             <motion.div
+               whileHover={{ scale: 1.05 }}
+               whileTap={{ scale: 0.95 }}
+             >
+               <Button className="btn-primary px-6 py-3 rounded-xl">
+                 Open Account
+                 <ArrowRight className="w-4 h-4 ml-2" />
+               </Button>
+             </motion.div>
+           </div>
+
+           {/* Mobile Menu Button */}
+           <div className="md:hidden flex items-center space-x-3">
+             <ThemeToggle />
+             <Button
+               variant="ghost"
+               size="icon"
+               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+               className="glass rounded-xl"
+             >
+               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+             </Button>
+           </div>
+         </nav>
+
+         {/* Mobile Menu */}
+         {isMobileMenuOpen && (
+           <motion.div
+             initial={{ opacity: 0, y: -20 }}
+             animate={{ opacity: 1, y: 0 }}
+             exit={{ opacity: 0, y: -20 }}
+             className="md:hidden absolute top-full left-0 right-0 glass-card border-t border-white/10 p-6"
+           >
+             <div className="flex flex-col space-y-4">
+               <a href="#services" className="text-foreground hover:text-primary transition-colors font-medium">Services</a>
+               <a href="#platform" className="text-foreground hover:text-primary transition-colors font-medium">Platform</a>
+               <a href="#research" className="text-foreground hover:text-primary transition-colors font-medium">Research</a>
+               <a href="#pricing" className="text-foreground hover:text-primary transition-colors font-medium">Pricing</a>
+               <a href="#contact" className="text-foreground hover:text-primary transition-colors font-medium">Contact</a>
+               <Button className="btn-primary w-full">
+                 Open Account
+                 <ArrowRight className="w-4 h-4 ml-2" />
+               </Button>
+             </div>
+           </motion.div>
+         )}
+       </motion.header>
 
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center bg-gradient-mesh overflow-hidden">
@@ -712,63 +767,82 @@ const Index = () => {
       </section>
 
       {/* Premium Footer */}
-      <footer className="bg-charcoal text-white py-16">
+      <footer className="bg-charcoal dark:bg-background border-t border-white/10 text-white py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="space-y-6">
-              <img 
+              <motion.img 
                 src="/lovable-uploads/f7de1567-6930-4510-8e22-a4606c1810e9.png" 
                 alt="Raghunathan Money" 
-                className="h-12 w-auto brightness-0 invert"
+                className="h-12 w-auto filter dark:brightness-0 dark:invert"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 400 }}
               />
-              <p className="text-white/70 leading-relaxed">
+              <p className="text-white/70 dark:text-foreground/70 leading-relaxed">
                 Your trusted partner in wealth creation. Investment khushiyon ka with transparent, technology-driven solutions.
               </p>
               <div className="flex space-x-4">
-                <Button variant="ghost" size="icon" className="text-white/70 hover:text-primary">
-                  <Mail className="w-5 h-5" />
-                </Button>
-                <Button variant="ghost" size="icon" className="text-white/70 hover:text-primary">
-                  <Phone className="w-5 h-5" />
-                </Button>
+                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                  <Button variant="ghost" size="icon" className="text-white/70 dark:text-foreground/70 hover:text-primary hover:bg-primary/10">
+                    <Mail className="w-5 h-5" />
+                  </Button>
+                </motion.div>
+                <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                  <Button variant="ghost" size="icon" className="text-white/70 dark:text-foreground/70 hover:text-primary hover:bg-primary/10">
+                    <Phone className="w-5 h-5" />
+                  </Button>
+                </motion.div>
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-white">Services</h4>
-              <ul className="space-y-2 text-white/70">
-                <li><a href="#" className="hover:text-primary transition-colors">Equity Trading</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Mutual Funds</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Global Investing</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Commodities</a></li>
+              <h4 className="font-semibold mb-4 text-white dark:text-foreground">Services</h4>
+              <ul className="space-y-2 text-white/70 dark:text-foreground/70">
+                <li><a href="#" className="hover:text-primary transition-colors hover:translate-x-1 transform inline-block">Equity Trading</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors hover:translate-x-1 transform inline-block">Mutual Funds</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors hover:translate-x-1 transform inline-block">Global Investing</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors hover:translate-x-1 transform inline-block">Commodities</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-white">Resources</h4>
-              <ul className="space-y-2 text-white/70">
-                <li><a href="#" className="hover:text-primary transition-colors">Research</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Education</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Market Updates</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Support</a></li>
+              <h4 className="font-semibold mb-4 text-white dark:text-foreground">Resources</h4>
+              <ul className="space-y-2 text-white/70 dark:text-foreground/70">
+                <li><a href="#" className="hover:text-primary transition-colors hover:translate-x-1 transform inline-block">Research</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors hover:translate-x-1 transform inline-block">Education</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors hover:translate-x-1 transform inline-block">Market Updates</a></li>
+                <li><a href="#" className="hover:text-primary transition-colors hover:translate-x-1 transform inline-block">Support</a></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-white">Contact</h4>
-              <ul className="space-y-2 text-white/70">
-                <li>📞 1800-123-4567</li>
-                <li>✉️ support@rmoney.in</li>
-                <li>📍 Mumbai, India</li>
+              <h4 className="font-semibold mb-4 text-white dark:text-foreground">Contact</h4>
+              <ul className="space-y-2 text-white/70 dark:text-foreground/70">
+                <li className="flex items-center space-x-2">
+                  <Phone className="w-4 h-4" />
+                  <span>1800-123-4567</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <Mail className="w-4 h-4" />
+                  <span>support@rmoney.in</span>
+                </li>
+                <li className="flex items-center space-x-2">
+                  <MapPin className="w-4 h-4" />
+                  <span>Mumbai, India</span>
+                </li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-white/20 mt-12 pt-8 text-center text-white/60">
+          <div className="border-t border-white/20 dark:border-foreground/20 mt-12 pt-8 text-center text-white/60 dark:text-foreground/60">
             <p>&copy; 2024 Raghunathan Money. All rights reserved. | SEBI Reg: INZ000123456</p>
           </div>
         </div>
       </footer>
+
+      {/* Floating Components */}
+      <Chatbot />
+      <WhatsAppButton />
     </div>
   );
 };
